@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .models import Worker, Tools
+from .models import Worker, Tool
 
 
 # Create your views here.
@@ -13,8 +13,8 @@ class WorkersListView(generic.ListView):
     template_name = 'workapp/index.html'
 
 
-class WorkerDetailView(generic.ListView):
-    queryset = Tools.objects.all()
+class WorkerDetailView(generic.DetailView):
+    model = Worker
     template_name = 'workapp/tools_list.html'
 
 
@@ -26,7 +26,7 @@ class WorkerCreateView(generic.CreateView):
 
 
 class ToolsCreateView(generic.CreateView):
-    model = Tools
+    model = Tool
     template_name = 'workapp/create_tools.html'
     fields = ['name', 'worker', 'inv_number', 'cost']
     success_url = reverse_lazy('home')

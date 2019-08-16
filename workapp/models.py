@@ -12,8 +12,11 @@ class Worker(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        reverse('tools_list', args=[{'slug': self.slug}])
 
-class Tools(models.Model):
+
+class Tool(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, blank=True, default=uuid.uuid1)
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE, related_name='tools')
